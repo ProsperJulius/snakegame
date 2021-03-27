@@ -1,0 +1,11 @@
+<div class="board" *ngFor="let row of squares.keys()">
+  
+    <app-cell 
+    
+     *ngFor="let column of squares.keys()"
+      [snake]="squares[row][column]"
+      [row]="row"
+      [column]="column"
+    >
+    </app-cell>
+  </div>
