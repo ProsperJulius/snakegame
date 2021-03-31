@@ -1,6 +1,6 @@
 # Snakegame
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.1.3.
+This project is a snake game implementation using angular and using linked list to represent the snake
 
 ## Development server
 
