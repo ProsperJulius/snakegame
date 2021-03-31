@@ -1,21 +1,84 @@
-import { Position } from './position';
+import { Listnode } from './listnode';
 export class Snake {
-
-    symbol:string = "x";
-
-    constructor(private position:Position){
-
+     head;
+     tail;
+    
+    constructor(position){
+        const root=new Listnode(position);
+        this.head=root;
+        this.tail=root;
+        
+    }
+    
+    add(position){
+    const newNode=new Listnode(position);
+     this.tail.next=newNode;
+     this.tail=this.tail.next;
+  
+    }
+    getHead():Listnode{
+    return this.head;
+    }
+    getTail(){
+        return this.tail;
     }
     moveUp(){
-        this.position.row+=1;
+        let position =this.getPosition();
+        let possiblePosition= {row:(position.row)-1,
+            column:position.column,
+            direction:position.direction};
+        if(!this.isPositionOutOfBound(possiblePosition)){
+            
+            position.row-=1;
+           
+        }else{
+            position.row=11;
+        }
+     
     }
     moveDown(){
-        this.position.row-=1;
+        let position =this.getPosition();
+        let possiblePosition= {row:(position.row)+1,
+            column:position.column,
+            direction:position.direction};
+        if(!this.isPositionOutOfBound(possiblePosition)){
+            position.row+=1;
+        }else{
+            position.row=0;
+        }
+        
     }
     moveLeft(){
-        this.position.column-=1;
+        let position = this.getPosition();
+        let possiblePosition= {row:position.row,
+            column:(position.column)-1,
+            direction:position.direction};
+        if(!this.isPositionOutOfBound(possiblePosition)){
+            position.column-=1;
+        }else{
+            position.column=19;
+        }
     }
     moveRight(){
-        this.position.column+=1;
+        let position = this.getPosition();
+        let possiblePosition= {row:position.row,
+            column:(position.column)+1,
+            direction:position.direction};
+        if(!this.isPositionOutOfBound(possiblePosition)){
+            position.column+=1;
+        }else{
+            position.column=0;
+        }
+    }
+    isPositionOutOfBound(position){
+        if(position.row <0 || position.row >= 12 || position.column < 0 || position.column>= 19){
+           
+            return true;
+        } else{
+            return false;
+        }
+    }
+    getPosition(){
+       return this.head.position;
     }
 }

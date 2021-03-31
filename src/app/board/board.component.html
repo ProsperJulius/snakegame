@@ -1,11 +1,14 @@
-<div class="board" *ngFor="let row of squares.keys()">
+
+
+<button class=" btn-dark form-control">Snake Game in Angular by Prosper Julius Mavunga</button>
+<div class="board"
+*ngFor="let row of range(squares.length)">
   
     <app-cell 
+     *ngFor="let column of range(squares[row].length)"
+      [color]="squares[row][column]"
     
-     *ngFor="let column of squares.keys()"
-      [snake]="squares[row][column]"
-      [row]="row"
-      [column]="column"
     >
     </app-cell>
   </div>
+  <button class="btn btn-dark form-control" (click)="startGame()">Start Game</button>

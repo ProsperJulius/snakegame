@@ -1,5 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Snake } from '../snake';
+export enum cellvalue{
+  Empty ='',
+  X='x',
+  COLOR='whitesmoke'
+}
 
 @Component({
   selector: 'app-cell',
@@ -7,11 +11,7 @@ import { Snake } from '../snake';
   styleUrls: ['./cell.component.css']
 })
 export class CellComponent implements OnInit {
-  @Input() snake:Snake;
-  @Input() row:any;
-  @Input() column:any;
-  
-
+  @Input() color:cellvalue;
   constructor() { }
 
   ngOnInit(): void {
