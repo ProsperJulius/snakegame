@@ -12,17 +12,16 @@ import { Snake } from '../snake';
 export class BoardComponent implements OnInit {
  squares=[];
  snake:Snake;
- previousPosition;
- readonly timestep=2000;
+ readonly timestep=500;
   constructor() { }
   ngOnInit(): void {
     this.newGame();
     this.snake =new Snake({row:5,column:5,direction:Directions.NORTH});
     this.snake.add({row:6,column:5,direction:Directions.NORTH});
     this.snake.add({row:7,column:5,direction:Directions.NORTH});
-    console.log(this.snake);
+    this.snake.add({row:8,column:5,direction:Directions.NORTH});
+    this.snake.add({row:9,column:5,direction:Directions.NORTH});
     this.drawSnakeOnBoard();
- 
   }
   startGame(){
       switch(this.snake.getPosition().direction){
@@ -32,11 +31,9 @@ export class BoardComponent implements OnInit {
         case Directions.WEST:this.moveLeft();break;
         default: break;
       }
-      
      setTimeout(() => {
        this.startGame();
       }, this.timestep)
-    
   }
   drawSnakeOnBoard(){
     let iterator = this.snake.getHead();
@@ -46,27 +43,24 @@ export class BoardComponent implements OnInit {
       this.squares[row][column] =cellvalue.COLOR;
       iterator =iterator.next;
     }
-    this.snake.moveLeft();
-    console.log(this.snake);
-    
-    
+    //console.log(JSON.stringify(this.snake,null));  
   }
-  updateSnake(){
-    let iterator = this.snake.getHead();
-    let  row = iterator.position.row;
-    let column = iterator.position.column;
-    this.squares[row][column] =cellvalue.COLOR;
-    iterator=iterator.next;
-   
+  updateSnake(previousPosition){
+   let iterator = this.snake.getHead();
+   let  row = iterator.position.row;
+   let column = iterator.position.column;
+   this.squares[row][column] =cellvalue.COLOR;
+   iterator=iterator.next;
    while(iterator!=null){
     let positionSwapper=iterator.position;
-    iterator.position=this.previousPosition;
-    this.previousPosition=positionSwapper;    
+    iterator.position=previousPosition;
+    previousPosition=positionSwapper;    
     row=iterator.position.row;
     column = iterator.position.column;
-  // this.squares[row][column] =cellvalue.COLOR;
    iterator=iterator.next;
   }
+
+  
  
 
   }
@@ -88,38 +82,47 @@ export class BoardComponent implements OnInit {
       default:break;
     }
   }
- 
- moveUp(){
-  this.previousPosition=this.snake.getPosition();
-  //console.log(this.previousPosition);
+ moveUp(){ 
+ let row = this.snake.getHead().position.row;
+ let column = this.snake.getHead().position.column;
+ let direction = this.snake.getHead().position.Directions;
+ let newPosition = {row:row,column:column,direction:direction};
   this.snake.moveUp();
   this.unOccupy();
-  this.updateSnake();
+  this.updateSnake(newPosition);
 }
   unOccupy(){
     let row =this.snake.getTail().position.row;
     let column = this.snake.getTail().position.column;
-  
     this.squares[row][column]=cellvalue.Empty;
   }
  
   moveDown(){
-    this.previousPosition=this.snake.getPosition();
+    let row = this.snake.getHead().position.row;
+    let column = this.snake.getHead().position.column;
+    let direction = this.snake.getHead().position.Directions;
+    let newPosition = {row:row,column:column,direction:direction};
     this.snake.moveDown();
     this.unOccupy();
-    this.updateSnake();
+    this.updateSnake(newPosition);
   }
   moveLeft(){
-    this.previousPosition=this.snake.getPosition();
+    let row = this.snake.getHead().position.row;
+ let column = this.snake.getHead().position.column;
+ let direction = this.snake.getHead().position.Directions;
+ let newPosition = {row:row,column:column,direction:direction};
     this.snake.moveLeft();
     this.unOccupy();
-    this.updateSnake();
+    this.updateSnake(newPosition);
   }
   moveRight(){
-    this.previousPosition=this.snake.getPosition();
+    let row = this.snake.getHead().position.row;
+    let column = this.snake.getHead().position.column;
+    let direction = this.snake.getHead().position.Directions;
+    let newPosition = {row:row,column:column,direction:direction};
     this.snake.moveRight();
     this.unOccupy();
-    this.updateSnake();
+    this.updateSnake(newPosition);
     
   }
    range(size, startAt = 0) {

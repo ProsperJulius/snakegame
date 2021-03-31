@@ -79,6 +79,6 @@ export class Snake {
         }
     }
     getPosition(){
-       return this.head.position;
+       return this.getHead().position;
     }
 }
