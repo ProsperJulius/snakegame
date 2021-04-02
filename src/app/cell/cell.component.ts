@@ -2,7 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 export enum cellvalue{
   Empty ='',
   X='x',
-  COLOR='whitesmoke'
+  COLOR='whitesmoke',
+  FOODCOLOR='red'
 }
 
 @Component({

@@ -71,7 +71,7 @@ export class Snake {
         }
     }
     isPositionOutOfBound(position){
-        if(position.row <0 || position.row >= 12 || position.column < 0 || position.column>= 19){
+        if(position.row <0 || position.row > 11 || position.column < 0 || position.column> 19){
            
             return true;
         } else{
